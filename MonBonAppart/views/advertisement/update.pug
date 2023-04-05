@@ -1,0 +1,51 @@
+include ../header
++header("Mon Bon'Appart | Modification d'une annonce")
+block content
+  if (user)
+    - var day = form.date.getDate().toString().padStart(2, '0')
+    - var month = (form.date.getMonth() + 1).toString().padStart(2, '0')
+    - var year = form.date.getFullYear()
+    div(class="block p-6 max-w-sm mx-auto")
+      h1(class="text-2xl text-center") Modifier une annonce
+      div(class="block p-6 rounded-lg shadow-lg bg-white max-w-sm mx-auto mt-10")
+        form(action=`/ad/update/${id}` method="POST" enctype="multipart/form-data")
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputTitle") Titre
+            input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputTitle" type='text' name="title" placeholder='Titre' value=form.title required)
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputType") Type
+            select(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputType" name="type" required)
+              option(value="") Choisissez le type
+              option(value="Vente" selected="Vente" === form.type) Vente
+              option(value="Location" selected="Location" === form.type) Location
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputPublish") Statut de la publication
+            select(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputPublish" name="publication_status" required)
+              option(value="") Choisissez le statut de la publication
+              option(value="Publiée" selected="Publiée" === form.publication_status) Publiée
+              option(value="Non publiée" selected="Non publiée" === form.publication_status) Non publiée
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputStatus") Statut du bien
+            select(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputStatus" name="publication_property" required)
+              option(value="") Choisissez le statut du bien
+              option(value="Disponible" selected="Disponible" === form.publication_property) Disponible
+              option(value="Vendu" selected="Vendu" === form.publication_property) Vendu
+              option(value="Loué" selected="Loué" === form.publication_property) Loué
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputDescription") Description du bien
+            textarea(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputDescription" name="description" placeholder='Description' maxlength="200" required) #{form.description}
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputPrice") Prix (€)
+            input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputPrice" type='number' name="price" placeholder='Prix (en euros)' value=form.price required) 
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputAvailability") Date de disponibilité
+            input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputAvailability" type='date' name="date" value=`${year}-${month}-${day}` required)
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputImages") Images du bien (.png uniquement)
+            input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputImages" type='file' name="pictures" multiple accept=".png")
+          div(class="mb-6")
+            button(class="w-full px-6 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md transition duration-150 py-2.5 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg" type='submit') Modifier l'annonce
+  else 
+    <script>location.href="/error"</script>
+include ../footer
++footer

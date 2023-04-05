@@ -1,0 +1,21 @@
+mixin navbar 
+  nav(class="m-0 w-full bg-gray-100 font-sans")
+    div(class="bg-white shadow")
+      div(class="container mx-auto px-4")
+        div(class="flex items-center justify-between py-4")
+          div
+            img(alt="Logo" class="h-16 w-16 float-left" src="/images/logo.png")
+            span(class="float-right my-5") Mon Bon'Appart
+          div(class="hidden sm:flex sm:items-center")
+            a(class="mr-4 text-sm font-semibold text-gray-800 hover:text-blue-600 text-xl" href="/") Accueil
+            a(class="mr-4 text-sm font-semibold text-gray-800 hover:text-blue-600 text-xl" href="/ad") Liste des biens
+          div(class="hidden sm:flex sm:items-center")
+            a(class="mr-4 text-sm font-semibold text-gray-800 hover:text-blue-600 text-xl" href="/authentication") Profil
+
+        // Mobile
+        div(class="block border-t-2 bg-white py-2 sm:hidden")
+          div(class="flex flex-col")
+            a(class="mb-1 text-sm font-semibold text-gray-800 hover:text-blue-600 text-xl" href="/") Accueil
+            a(class="mb-1 text-sm font-semibold text-gray-800 hover:text-blue-600 text-xl" href="/ad") Liste des biens
+            div(class="flex items-center justify-between border-t-2 pt-2")
+              a(class="mr-1 text-sm font-semibold text-gray-800 hover:text-blue-600 text-xl" href="/authentication") Profil

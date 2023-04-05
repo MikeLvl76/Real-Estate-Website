@@ -1,0 +1,48 @@
+include ../header
++header("Mon Bon'Appart | Création d'une nouvelle annonce")
+block content
+  if (user)
+    div(class="block p-6 max-w-sm mx-auto")
+      h1(class="text-2xl text-center") Nouvelle annonce
+      div(class="block p-6 rounded-lg shadow-lg bg-white max-w-sm mx-auto mt-10")
+        form(action="/ad/create" method="POST" enctype="multipart/form-data")
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputTitle") Titre
+            input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputTitle" type='text' name="title" placeholder='Titre' required)
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputType") Type
+            select(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputType" name="type" required)
+              option(value="") Choisissez le type
+              option(value="Vente") Vente
+              option(value="Location") Location
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputPublish") Statut de la publication
+            select(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputPublish" name="publication_status" required)
+              option(value="") Choisissez le statut de la publication
+              option(value="Publiée") Publiée
+              option(value="Non publiée") Non publiée
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputStatus") Statut du bien
+            select(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputStatus" name="publication_property" required)
+              option(value="") Choisissez le statut du bien
+              option(value="Disponible") Disponible
+              option(value="Vendu") Vendu
+              option(value="Loué") Loué
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputDescription") Description du bien
+            textarea(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputDescription" name="description" placeholder='Description' maxlength="200" required)
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputPrice") Prix (€)
+            input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputPrice" type='number' name="price" placeholder='Prix (en euros)' required) 
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputAvailability") Date de disponibilité
+            input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputAvailability" type='date' name="date" required)
+          div(class="mb-6")
+            label(class="inline-block mb-2 text-gray-700" for="inputImages") Images du bien (.png uniquement)
+            input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputImages" type='file' name="pictures" multiple accept=".png")
+          div(class="mb-6")
+            button(class="w-full px-6 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md transition duration-150 py-2.5 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg" type='submit') Créer l'annonce
+  else 
+    <script>location.href="/error"</script>
+include ../footer
++footer

@@ -1,0 +1,10 @@
+mixin header(title)
+  doctype html
+  <html lang="fr">
+    head
+      title=title
+      link(rel="stylesheet", href="/stylesheets/style.css")
+    <body>
+      header
+        include header/navbar
+        +navbar

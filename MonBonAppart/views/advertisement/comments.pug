@@ -1,0 +1,87 @@
+include ../header
++header("Mon Bon'Appart | Commentaires")
+block content
+  div()
+    if (user)
+      div(class="flex flex-row")
+        div(class="ml-5 grow w-1/2 h-min bg-white rounded-lg border border-gray-200 shadow-md dark:bg-white-800 dark:border-gray-300")
+          div(class="rounded-lg w-auto bg-sky-500") 
+            p(class="text-center font-italic text-white") Annonce
+          div(class="flex-col")
+            h1(class="text-2xl text-center font-bold") #{ad.title}
+          div()
+            if (ad.pictures.length > 0)
+              ul(class="grid grid-gap-1 lg:grid-cols-1 justify-center items-center")
+                - let i = 1
+                each pic in ad.pictures
+                  li()
+                    img(class="object-contain scale-75 mx-auto" onclick=`showModal('../${pic}')` src=`../${pic}` alt=`Image du bien n°${i}`)
+                    - i++
+              div()
+                div(id="modal" class="hidden fixed top-0 left-0 z-80 w-screen h-screen bg-black/70 flex justify-center items-center")
+                  a(class="fixed z-90 top-6 right-8 text-white text-5xl font-bold" href="javascript:void(0)" onclick="closeModal()") X 
+                  img(src=`../${pic}` alt="Zoom" id="modal-img" class="max-w-[800px] max-h-[600px] object-cover")
+              script.
+                var modal = document.getElementById("modal");
+                var modalImg = document.getElementById("modal-img");
+
+                function showModal(src) {
+                  modal.classList.remove('hidden');
+                  modalImg.src = src;
+                }
+                
+                function closeModal() {
+                  modal.classList.add('hidden');
+                }
+            else 
+              p(class="text-center") Aucune image disponible
+          div(class="text-2xl")
+            table(class="bg-gray-300 text-gray-900 table-auto border-collapse w-full shadow-md text-center")
+              thead
+                tr()
+                  th(class="bg-blue-600 text-white p-1") Information
+                  th(class="bg-blue-600 text-white p-1") Détails
+              tbody
+                tr(class="bg-gray-50 text-black")
+                  td() Type
+                  td() #{ad.type} 
+                tr(class="bg-gray-50 text-black")
+                  td() Statut de la publication
+                  td() #{ad.publication_status}
+                tr(class="bg-gray-50 text-black")
+                  td() Statut du bien
+                  td() #{ad.publication_property}
+                tr(class="bg-gray-50 text-black")
+                  td() Description
+                  td()   
+                    p(class="break-all") #{ad.description}
+                tr(class="bg-gray-50 text-black")
+                  td() Prix (en €)
+                  td() #{ad.price} 
+                tr(class="bg-gray-50 text-black")
+                  td() Date de disponibilité
+                  td() #{ad.date.toLocaleDateString('fr-FR')}
+        div(class="mr-5 ml-5 grow w-1/2 h-min bg-white rounded-lg border border-gray-200 shadow-md dark:bg-white-800 dark:border-gray-300")
+          div(class="overflow-y-scroll h-fit")
+            div(class="w-max")
+              each comment in ad.comments
+                div()
+                  p(class="text-justify text-black-900 break-all") #{comment.content}
+                div(class="flex flex-row w-fit gap-4 mb-5 bg-sky-100 opacity-75 border border-blue-100")
+                  p(class="text-justify text-xs italic") De #{comment.author}
+                  p(class="text-justify text-xs italic") le #{comment.date}
+                  if (user.admin)
+                    button(class="text-justify text-xs italic" type="button" onclick=`
+                          const rep = document.getElementById('inputComment');
+                          rep.focus(); 
+                          rep.value = "[Réponse à ${comment.author}] : "; 
+                          `) Répondre
+          div(class="h-auto")
+            form(action=`${ad._id}`, method="POST" name="reply")
+              textarea(class="w-full h-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputComment" name="comment" placeholder='Envoyer un message...' required)
+              button(class="w-full px-6 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md transition duration-150 py-2.5 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg" type='submit') Envoyer
+    else 
+      div(class="block p-6 max-w-sm mx-auto")
+        h1(class="text-2xl text-center") Vous devez vous connecter ou créer un compte pour commenter une annonce !
+include ../footer
++footer

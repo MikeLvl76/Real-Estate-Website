@@ -1,0 +1,55 @@
+include ../header
++header("Mon Bon'Appart | Profil")
+block content
+  if (!user)
+    ul(class="flex items-start justify-center") 
+      li(class="inline-block")
+        div(class="block p-6 w-fit mx-auto mt-5 bg-blue-600 rounded-full")
+          h1(class="text-2xl text-center text-white") Se connecter
+        div(class="block p-6 rounded-lg shadow-lg bg-white max-w-sm mx-auto mt-10")
+          form(action="/authentication/login" method="POST")
+            div(class="mb-6")
+              label(class="inline-block mb-2 text-gray-700" for="inputUsernameLogin") Nom d'utilisateur
+              input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputUsernameLogin" placeholder="JohnDoe" name="username" required type="text")
+            div(class="mb-6")
+              label(class="inline-block mb-2 text-gray-700" for="inputPasswordLogin") Mot de passe
+              input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputPasswordLogin" placeholder="Mot de passe" name="password" required type="password")
+            div(class="mb-6")
+              button(class="w-full px-6 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md transition duration-150 py-2.5 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg" type="submit") Se connecter
+      li(class="inline-block") 
+        div(class="w-32")
+      li(class="inline-block")
+        div(class="block p-6 w-fit mx-auto mt-5 bg-blue-600 rounded-full")
+          h1(class="text-2xl text-center text-white") S'inscrire
+        div(class="block p-6 rounded-lg shadow-lg bg-white max-w-sm mx-auto mt-10")
+          form(action="/authentication/register" method="POST")
+            div(class="mb-6")
+              label(class="inline-block mb-2 text-gray-700" for="inputFirstname") Prénom
+              input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputFirstname" placeholder="John" name="firstname" required type="text")
+            div(class="mb-6")
+              label(class="inline-block mb-2 text-gray-700" for="inputLastname") Nom
+              input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputLastname" placeholder="Doe" name="lastname" required type="text")
+            div(class="mb-6")
+              label(class="inline-block mb-2 text-gray-700" for="inputUsernameRegister") Nom d'utilisateur
+              input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputUsernameRegister" placeholder="JohnDoe" name="username" required type="text" maxlength="10")
+            div(class="mb-6")
+              label(class="inline-block mb-2 text-gray-700" for="inputEmail") Adresse mail
+              input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputEmail" placeholder="john.doe@exemple.fr" name="email" required type="email")
+            div(class="mb-6")
+              label(class="inline-block mb-2 text-gray-700" for="inputPasswordRegister") Mot de passe
+              input(class="w-full px-3 border border-solid border-gray-300 rounded py-1.5 focus:border-blue-600 focus:outline-none" id="inputPasswordRegister" placeholder="Mot de passe" name="password" required type="password")
+            div(class="mb-6")
+              button(class="w-full px-6 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md transition duration-150 py-2.5 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg" type="submit") S'inscrire
+  else
+    if (!user.admin)
+      div(class="block p-6 rounded-lg shadow-lg bg-white max-w-sm mx-auto mt-10")
+        h1(class="text-2xl text-center") Vous êtes déjà connecté en tant que "#{user.username}"
+        button(class="w-full px-6 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md transition duration-150 py-2.5 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg" onclick="window.location='/authentication/logout';" type="button") Déconnexion
+    else
+      div(class="block p-6 rounded-lg shadow-lg bg-white max-w-sm mx-auto mt-10")
+        button(class="w-full px-6 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md transition duration-150 py-2.5 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg" onclick="window.location='/admin';" type="button") Ajouter un administrateur
+      div(class="block p-6 rounded-lg shadow-lg bg-white max-w-sm mx-auto mt-10")
+        h1(class="text-2xl text-center") Vous êtes déjà connecté en tant que "#{user.username}"
+        button(class="w-full px-6 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md transition duration-150 py-2.5 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg" onclick="window.location='/authentication/logout';" type="button") Déconnexion
+include ../footer
++footer

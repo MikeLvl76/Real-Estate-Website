@@ -1,0 +1,2 @@
+# Prevent modules import (too heavy)
+/node_modules
